@@ -1,0 +1,36 @@
+﻿@model GDS.Components.ViewModels.CheckBoxViewModel
+@{
+    if (Model == null)
+    {
+        throw new InvalidOperationException("CheckBoxViewModel is null.");
+    }
+    var hasHint = !string.IsNullOrEmpty(Model.Hint);
+    var moduleType = Model.Exclusive ? "exclusivecheck" : "check";
+}
+@{
+    @if (Model.CheckBoxType == GDS.Components.Enum.CheckBoxType.CheckBox)
+    {
+        <div class="govuk-checkboxes__item">
+            <input class="govuk-checkboxes__input"
+                id="@Model.Id"
+                name="@Model.Name"
+                type="checkbox"
+                value="true"
+                @(Model.Checked ? "checked" : "")
+                data-module="@moduleType">
+            <label class="govuk-label govuk-checkboxes__label" for="@Model.Id">
+                @Model.Text
+            </label>
+            @if (hasHint)
+            {
+                <div id="@Model.Id-hint" class="govuk-hint govuk-checkboxes__hint">
+                    @Model.Hint
+                </div>
+            }
+        </div>
+    } else
+    {
+        <div class="govuk-checkboxes__divider">@Model.Text</div>
+    }
+    @Html.HiddenFor(m => Model.Text)
+}

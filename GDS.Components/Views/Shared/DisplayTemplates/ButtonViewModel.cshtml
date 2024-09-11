@@ -1,0 +1,14 @@
+﻿@model GDS.Components.ViewModels.ButtonViewModel
+@{
+
+    if (Model == null)
+    {
+        throw new InvalidOperationException("ButtonViewModel is null.");
+    }
+}
+
+@{
+    <button type="@Model.ButtonVerb" class="@Model.ButtonClass" data-module="govuk-button">
+        @Model.Text
+    </button>
+}

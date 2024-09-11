@@ -1,0 +1,12 @@
+﻿@model GDS.Components.ViewModels.InsetTextViewModel;
+@{
+    if (Model == null)
+    {
+        throw new InvalidOperationException("InsetTextViewModel is null.");
+    }
+}
+@{
+<div class="govuk-inset-text">
+    @Model.Content
+</div>
+}

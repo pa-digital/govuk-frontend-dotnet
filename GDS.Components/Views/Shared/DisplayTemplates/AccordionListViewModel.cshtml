@@ -1,0 +1,28 @@
+﻿@model GDS.Components.ViewModels.AccordionListViewModel
+@{
+
+    if (Model == null)
+    {
+        throw new InvalidOperationException("AccordionListViewModel is null.");
+    }
+    var elementIndex = 1;
+}
+@{
+    <div class="govuk-accordion" data-module="govuk-accordion" id="@Model.Id">
+        @foreach (var element in Model.Elements)
+        {
+            <div class="govuk-accordion__section">
+                <div class="govuk-accordion__section-header">
+                    <h2 class="govuk-accordion__section-heading">
+                        <span class="govuk-accordion__section-button" id="@Model.Id-heading-@elementIndex">
+                            @element.Header
+                        </span>
+                    </h2>
+                </div>
+                <div id="@Model.Id-content-@elementIndex" class="govuk-accordion__section-content">
+                    <p class="govuk-body">@element.Content</p>
+                </div>
+            </div>
+        }
+    </div>
+}

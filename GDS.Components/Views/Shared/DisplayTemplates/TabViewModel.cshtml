@@ -1,0 +1,32 @@
+﻿@model GDS.Components.ViewModels.TabViewModel;
+@{
+    if (Model == null)
+    {
+        throw new InvalidOperationException("TabViewModel is null.");
+    }
+    var inputBaseId = ViewData.TemplateInfo.HtmlFieldPrefix.Replace(" ", "").Replace("-", "").Replace("_", "").Replace(".", "").ToLower();
+}
+@{
+    <div class="govuk-tabs" data-module="govuk-tabs">
+        <h2 class="govuk-tabs__title">
+            @Model.Title
+        </h2>
+        <ul class="govuk-tabs__list">
+            @for (int i = 0; i < Model.Tabs.Count; i++)
+            {
+                <li class="govuk-tabs__list-item @(i == 0 ? "govuk-tabs__list-item--selected" : "")">
+                    <a class="govuk-tabs__tab" href="#@inputBaseId-tab-@i">
+                        @Model.Tabs[i].TabHeader
+                    </a>
+                </li>
+            }
+        </ul>
+        @for (int i = 0; i < Model.Tabs.Count; i++)
+        {
+            <div class="govuk-tabs__panel @(i > 0 ? "govuk-tabs__panel--hidden" : "")" id="@inputBaseId-tab-@i">
+                <h2 class="govuk-heading-l">@Model.Tabs[i].TabHeader</h2>
+                @Html.Raw(Model.Tabs[i].TabContent)
+            </div>
+        }
+    </div>
+}

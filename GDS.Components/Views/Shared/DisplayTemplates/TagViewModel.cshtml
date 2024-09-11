@@ -1,0 +1,13 @@
+﻿@model GDS.Components.ViewModels.TagViewModel;
+@{
+
+    if (Model == null)
+    {
+        throw new InvalidOperationException("TagViewModel is null.");
+    }
+}
+@{
+    <strong class="@Model.TagClassName">
+        @Model.Text
+    </strong>
+}

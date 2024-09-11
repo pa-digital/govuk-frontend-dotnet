@@ -1,0 +1,23 @@
+﻿@model GDS.Components.ViewModels.ErrorSummaryViewModel;
+@{
+    if (Model != null && Model.Errors.Any())
+    {
+        <div class="govuk-error-summary" data-module="govuk-error-summary">
+            <div role="alert">
+                <h2 class="govuk-error-summary__title">
+                    @Model.Title
+                </h2>
+                <div class="govuk-error-summary__body">
+                    <ul class="govuk-list govuk-error-summary__list">
+                        @for (int i = 0; i < Model.Errors.Count; i++)
+                        {
+                            <li>
+                                <a href="@Model.Errors[i].Url">@Model.Errors[i].Text</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    }
+}

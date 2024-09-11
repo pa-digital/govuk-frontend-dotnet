@@ -1,0 +1,45 @@
+﻿@using GDS.Components.ViewModelCalculationModels
+@model GDS.Components.ViewModels.TaskListViewModel
+@{
+
+    if (Model == null)
+    {
+        throw new InvalidOperationException("TaskListViewModel is null.");
+    }
+    var inputBaseId = ViewData.TemplateInfo.HtmlFieldPrefix.Replace(" ", "").Replace("-", "").Replace("_", "").Replace(".", "").ToLower();
+}
+@{
+    @if (Model.Tasks.Any())
+    {
+        <ul class="govuk-task-list">
+            @for (int i = 0; i < Model.Tasks.Count; i++)
+            {
+                var task = Model.Tasks[i];
+                var taskDetails = new TaskViewCalculationsModel(task, inputBaseId, i);
+                <li class="govuk-task-list__item govuk-task-list__item--with-link">
+                    <div class="govuk-task-list__name-and-hint">
+                        <a class="govuk-link govuk-task-list__link" href="@task.Link.Url" aria-describedby="@taskDetails.ariaTag">
+                            @task.Link.Text
+                        </a>
+                        @if (taskDetails.showHint)
+                        {
+                            <div id="@taskDetails.hintId" class="govuk-task-list__hint">
+                                @task.Hint
+                            </div>
+                        }
+                    </div>
+                    <div class="govuk-task-list__status" id="@taskDetails.statusId">
+                        @if (taskDetails.showTag)
+                        {
+                            @Html.DisplayFor(m => task.Tag)
+                        }
+                        else
+                        {
+                            @task.Status
+                        }
+                    </div>
+                </li>
+            }
+        </ul>
+    }
+}

@@ -1,0 +1,64 @@
+﻿@using GDS.Components.ViewModelCalculationModels
+@model GDS.Components.ViewModels.SelectViewModel
+@{
+
+    if (Model == null)
+    {
+        throw new InvalidOperationException("SelectViewModel is null.");
+    }
+
+    var inputBaseId = ViewData.TemplateInfo.HtmlFieldPrefix.Replace(" ", "").Replace("-", "").Replace("_", "").Replace(".", "").ToLower();
+    var inputName = ViewData.TemplateInfo.GetFullHtmlFieldName("Value");
+    var selectViewCalculationModel = new SelectViewCalculationModel(Model, inputBaseId);
+    if (selectViewCalculationModel == null)
+    {
+        throw new InvalidOperationException("SelectViewCalculationModel is null.");
+    }    
+}
+@{
+    <div class="@selectViewCalculationModel.containerClass">
+        @if (selectViewCalculationModel.showH1)
+        {
+            <h1 class="govuk-label-wrapper">
+                <label class="@selectViewCalculationModel.labelClass" for="@inputBaseId">
+                    @Model.Label
+                </label>
+            </h1>
+        }
+        else
+        {
+            <label class="@selectViewCalculationModel.labelClass" for="@inputBaseId">
+                @Model.Label
+            </label>
+        }
+        @if (selectViewCalculationModel.hasHint)
+        {
+            <div id="@inputBaseId-hint" class="govuk-hint">
+                @Model.Hint
+            </div>
+        }
+        @if (selectViewCalculationModel.isError)
+        {
+            <p id="@inputBaseId-error" class="govuk-error-message">
+                <span class="govuk-visually-hidden">Error:</span> @Model.Error
+            </p>
+        }
+        <select class="@selectViewCalculationModel.elementClass" id="@inputBaseId" name="@inputName"
+        @if (selectViewCalculationModel.showDescribedByTag)
+        {
+            <text>aria-describedby="@selectViewCalculationModel.ariaDescribedBy"</text>
+        }>
+            @foreach (var option in Model.Options)
+            {
+                if (option.Selected)
+                {
+                    <option value="@option.Value" selected>@option.Text</option>
+                }
+                else
+                {
+                    <option value="@option.Value">@option.Text</option>
+                }
+            }
+        </select> 
+    </div>
+}

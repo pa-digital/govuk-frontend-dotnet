@@ -1,0 +1,38 @@
+﻿@using GDS.Components.Enum
+@using GDS.Components.Extensions
+@model GDS.Components.ViewModels.TableViewModel
+@{
+
+    if (Model == null)
+    {
+        throw new InvalidOperationException("TableViewModel is null.");
+    }
+}
+@{
+    <table class="govuk-table">
+        @if(!string.IsNullOrEmpty(Model.Caption))
+        {
+            <caption class="govuk-table__caption govuk-table__caption--m">@Model.Caption</caption>   
+        }        
+        <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                @foreach(var HeaderCell in Model.Headers)
+                {
+                    <th scope="col" class="@HeaderCell.HeaderCellClassName@HeaderCell.HeaderCellCustomWidthClassName">@HeaderCell.Data</th>
+                }
+            </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+            @foreach(var TableRow in Model.Rows)
+            {
+                <tr class="govuk-table__row">
+                    <th scope="row" class="govuk-table__header">@TableRow.HeaderColumn</th>
+                    @foreach(var TableCell in TableRow.DataColumns)
+                    {
+                        <td class="@TableCell.TableCellClassName">@TableCell.Data</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}

@@ -1,0 +1,35 @@
+﻿@model GDS.Components.ViewModels.SummaryCardListViewModel
+@{
+
+    if (Model == null)
+    {
+        throw new InvalidOperationException("SummaryCardListViewModel is null.");
+    }
+}
+@{
+
+    @foreach (var card in Model.Cards)
+    {
+        <div class="govuk-summary-card">
+            <div class="govuk-summary-card__title-wrapper">
+                <h2 class="govuk-summary-card__title">
+                    @card.Header
+                </h2>
+                @if (card.ActionLinks.Any())
+                {
+                    <ul class="govuk-summary-card__actions">
+                        @foreach (var link in card.ActionLinks)
+                        {
+                            <li class="govuk-summary-card__action">
+                                <a class="govuk-link" href="@link.Url">@link.Text<span class="govuk-visually-hidden"> @link.ActionContext</span></a>
+                            </li>
+                        }
+                    </ul>
+                }
+            </div>
+            <div class="govuk-summary-card__content">
+                @Html.DisplayFor(m => card.Content)
+            </div>
+        </div>
+    }
+}

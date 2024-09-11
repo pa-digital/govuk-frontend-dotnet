@@ -1,0 +1,53 @@
+﻿@model GDS.Components.ViewModels.SummaryListViewModel
+@{
+
+    if (Model == null)
+    {
+        throw new InvalidOperationException("SummaryListViewModel is null.");
+    }
+}
+@{
+    @if (Model.Items.Any())
+    {
+        <dl class="@Model.TopLevelBorderClass">
+            @foreach (var summaryItem in Model.Items)
+            {
+                <div class="@summaryItem.RowClass">
+                    <dt class="govuk-summary-list__key">
+                        @summaryItem.Label
+                    </dt><dd class="govuk-summary-list__value">
+                        @if (summaryItem.MissingItem is null)
+                        {
+                            @summaryItem.Text
+                        }
+                        else
+                        {
+                            <a href="@summaryItem.MissingItem.Url" class="govuk-link">@summaryItem.MissingItem.Text</a>
+                        }
+                    </dd>
+                    @if (summaryItem.ActionItemCount > 0)
+                    {
+                        <dd class="govuk-summary-list__actions">
+                            @if (summaryItem.ActionItemCount == 1)
+                            {
+                                var actionLink = summaryItem.ActionLinks[0];
+                                <a class="govuk-link" href="@actionLink.Url">@actionLink.Text<span class="govuk-visually-hidden"> @actionLink.ActionContext</span></a>
+                            }
+                            else
+                            {
+                                <ul class="govuk-summary-list__actions-list">
+                                    @foreach (var link in summaryItem.ActionLinks)
+                                    {
+                                        <li class="govuk-summary-list__actions-list-item">
+                                            <a class="govuk-link" href="@link.Url">@link.Text<span class="govuk-visually-hidden"> @link.ActionContext</span></a>
+                                        </li>
+                                    }
+                                </ul>
+                            }
+                        </dd>
+                    }
+                </div>
+            }
+        </dl>
+    }
+}

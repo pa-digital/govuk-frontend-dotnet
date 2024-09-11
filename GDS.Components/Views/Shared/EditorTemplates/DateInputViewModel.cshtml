@@ -1,0 +1,71 @@
+﻿@using GDS.Components.ViewModelCalculationModels
+@model GDS.Components.ViewModels.DateInputViewModel
+@{
+
+    if (Model == null)
+    {
+        throw new InvalidOperationException("DateInputViewModel is null.");
+    }
+
+    var inputBaseId = ViewData.TemplateInfo.HtmlFieldPrefix.Replace(" ", "").Replace("-", "").Replace("_", "").Replace(".", "").ToLower();
+    var inputName = ViewData.TemplateInfo.GetFullHtmlFieldName("Value");
+    var dateInputCalculationsModel = new DateInputViewCalculationsModel(Model, inputBaseId);
+    if (dateInputCalculationsModel == null)
+    {
+        throw new InvalidOperationException("DateInputViewCalculationsModel is null.");
+    }
+}
+@{
+    <div class="@dateInputCalculationsModel.containerClass">
+        <fieldset class="govuk-fieldset" role="group"
+        @if (dateInputCalculationsModel.showDescribedByTag)
+        {
+            <text>aria-describedby="@dateInputCalculationsModel.describedByTag"</text>
+        }>
+                    <legend class="@dateInputCalculationsModel.legendClass">
+                @if (dateInputCalculationsModel.showH1)
+                {
+                    <h1 class="govuk-fieldset__heading">
+                        @Model.Legend
+                    </h1>
+                }
+                else
+                {
+                    @Model.Legend
+                }
+            </legend>
+            @if (dateInputCalculationsModel.isHint)
+            {
+            <div id="@inputBaseId-hint" class="govuk-hint">
+                @Model.Hint
+            </div>
+            }
+            @if (dateInputCalculationsModel.isError)
+            {
+                <p id="@inputBaseId-error" class="govuk-error-message">
+                  <span class="govuk-visually-hidden">Error:</span> @Model.Error
+                </p>
+            }
+            <div class="govuk-date-input" id="@inputBaseId">
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        @Html.LabelFor(m => m.Day, "Day", new { @class = "govuk-label govuk-date-input__label" })
+                        @Html.TextBoxFor(m => m.Day, new { @class = dateInputCalculationsModel.dayInputClassName, type = "text", inputmode = "numeric", name = $"{inputBaseId}.day" })
+                    </div>
+                </div>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        @Html.LabelFor(m => m.Month, "Month", new { @class = "govuk-label govuk-date-input__label" })
+                        @Html.TextBoxFor(model => model.Month, new { @class = dateInputCalculationsModel.monthInputClassName, type = "text", inputmode = "numeric", name = $"{inputBaseId}.month" })
+                    </div>
+                </div>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        @Html.LabelFor(m => m.Year, "Year", new { @class = "govuk-label govuk-date-input__label" })
+                        @Html.TextBoxFor(model => model.Year, new { @class = dateInputCalculationsModel.yearInputClassName, type = "text", inputmode = "numeric", name = $"{inputBaseId}.year" })
+                      </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+}

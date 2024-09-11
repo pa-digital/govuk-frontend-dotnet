@@ -1,0 +1,19 @@
+﻿@model GDS.Components.ViewModels.PanelViewModel;
+@{
+
+    if (Model == null)
+    {
+        throw new InvalidOperationException("PanelViewModel is null.");
+    }
+
+}
+@{
+    <div class="govuk-panel govuk-panel--confirmation">
+        <h1 class="govuk-panel__title">
+            @Model.Header
+        </h1>
+        <div class="govuk-panel__body">
+            @Model.Content
+        </div>
+    </div>
+}

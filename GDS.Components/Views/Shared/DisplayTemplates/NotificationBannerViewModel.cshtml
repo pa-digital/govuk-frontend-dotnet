@@ -1,0 +1,41 @@
+﻿@model GDS.Components.ViewModels.NotificationBannerViewModel;
+@{
+    if (Model == null)
+    {
+        throw new InvalidOperationException("NotificationBannerViewModel is null.");
+    }
+    var inputBaseId = ViewData.TemplateInfo.HtmlFieldPrefix.Replace(" ", "").Replace("-", "").Replace("_", "").Replace(".", "").ToLower();
+}
+@{
+    <div class="@Model.WrapperClassName" role="@Model.WrapperAriaRole" aria-labelledby="@inputBaseId-title" data-module="govuk-notification-banner">
+        <div class="govuk-notification-banner__header">
+            <h2 class="govuk-notification-banner__title" id="@inputBaseId-title">
+                @Model.Header
+            </h2>
+        </div>
+        <div class="govuk-notification-banner__content">
+            @if (Model.ShowAlert)
+            {
+                <p class="govuk-notification-banner__heading">
+                    @Model.PreLinkContent
+                    @if (Model.Link != null)
+                    {
+                        <a class="govuk-notification-banner__link" href="@Model.Link.Url">@Model.Link.Text</a>
+                    } @Model.PostLinkContent
+                </p>
+            } else
+            {
+                @if (Model.ShowSubHeader)
+                {
+                    <h3 class="govuk-notification-banner__heading">
+                        Training outcome recorded and trainee withdrawn
+                    </h3>
+                }
+                <p class="govuk-body">@Model.PreLinkContent @if (Model.Link != null)
+                    {
+                        <a class="govuk-notification-banner__link" href="@Model.Link.Url">@Model.Link.Text</a>
+                    } @Model.PostLinkContent</p>
+            }
+        </div>
+    </div>
+}

@@ -1,0 +1,48 @@
+﻿@using GDS.Components.ViewModelCalculationModels
+@model GDS.Components.ViewModels.InputViewModel
+@{
+
+    if (Model == null)
+    {
+        throw new InvalidOperationException("InputViewModel is null.");
+    }
+
+    var inputBaseId = ViewData.TemplateInfo.HtmlFieldPrefix.Replace(" ", "").Replace("-", "").Replace("_", "").Replace(".", "").ToLower();
+    var inputName = ViewData.TemplateInfo.GetFullHtmlFieldName("Value");
+    var inputCalculationsModel = new InputViewCalculationsModel(Model);
+    if (inputCalculationsModel == null)
+    {
+        throw new InvalidOperationException("InputCalculationsModel is null.");
+    }
+}
+@{
+    <div class="@inputCalculationsModel.containerClass">
+        @if (inputCalculationsModel.showH1)
+        {
+            <h1 class="govuk-label-wrapper">
+                <label class="@inputCalculationsModel.labelClass" for="@inputBaseId">
+                    @Model.Label
+                </label>
+            </h1>
+        }
+        else
+        {
+            <label class="@inputCalculationsModel.labelClass" for="@inputBaseId">
+                @Model.Label
+            </label>
+        }
+        @if (inputCalculationsModel.hasHint)
+        {
+            <div id="@inputBaseId-hint" class="govuk-hint">
+                @Model.Hint
+            </div>
+        }
+        @if (inputCalculationsModel.isError)
+        {
+            <p id="@inputBaseId-error" class="govuk-error-message">
+                <span class="govuk-visually-hidden">Error:</span> @Model.Error                
+            </p>
+        }
+        <input class="@inputCalculationsModel.elementClass" id="@inputBaseId" name="@inputName" type="@inputCalculationsModel.inputType" value="@Model.Value">
+    </div>
+}

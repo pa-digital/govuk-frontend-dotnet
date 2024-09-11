@@ -1,0 +1,11 @@
+﻿@model GDS.Components.ViewModels.BackLinkViewModel;
+@{
+
+    if (Model == null)
+    {
+        throw new InvalidOperationException("BackLinkViewModel is null.");
+    }
+}
+@{
+    <a href="@Model.Url" class="govuk-back-link">@Model.Text</a>
+}

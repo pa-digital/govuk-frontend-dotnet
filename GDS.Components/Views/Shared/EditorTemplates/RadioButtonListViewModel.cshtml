@@ -1,0 +1,77 @@
+﻿@using GDS.Components.Enum
+@using GDS.Components.ViewModelCalculationModels
+@model GDS.Components.ViewModels.RadioButtonListViewModel
+@{
+    if (Model == null)
+    {
+        throw new InvalidOperationException("RadioButtonListViewModel is null.");
+    }
+    var inputBaseId = ViewData.TemplateInfo.HtmlFieldPrefix.Replace(" ", "").Replace("-", "").Replace("_", "").Replace(".", "").ToLower();
+    var groupName = $"{ViewData.TemplateInfo.HtmlFieldPrefix}.RadioButtons";
+    var radioButtonListViewCalculationModel = new RadioButtonListViewCalculationModel(Model, inputBaseId);
+    if (radioButtonListViewCalculationModel == null)
+    {
+        throw new InvalidOperationException("RadioButtonListViewCalculationModel is null.");
+    }
+}
+@{
+    <div class="@radioButtonListViewCalculationModel.containerClass">
+        <fieldset class="govuk-fieldset" @if (radioButtonListViewCalculationModel.showDescribedByTag)
+        {
+            <text>aria-describedby="@radioButtonListViewCalculationModel.describedByTag"</text>
+        }>
+            <legend class="@radioButtonListViewCalculationModel.legendClass">
+                @if (radioButtonListViewCalculationModel.showH1)
+                {
+                    <h1 class="govuk-fieldset__heading">
+                        @Model.Legend
+                    </h1>
+                }
+                else
+                {
+                    @Model.Legend
+                }
+            </legend>
+            @if (radioButtonListViewCalculationModel.hasHint)
+            {
+                <div id="@inputBaseId-hint" class="govuk-hint">
+                    @Model.Hint
+                </div>
+            }
+            @if (radioButtonListViewCalculationModel.isError)
+            {
+                <p id="@inputBaseId-error" class="govuk-error-message">
+                    <span class="govuk-visually-hidden">Error:</span> @Model.Error
+                </p>
+            }
+            <div class="@radioButtonListViewCalculationModel.radioButtonGroupClass" data-module="govuk-radios">
+                @for (int i = 0; i < Model.RadioButtons.Count; i++)
+                {
+                    var radioButton = Model.RadioButtons[i];
+                    radioButton.Id = $"{inputBaseId}-{i}".ToLower();
+                    radioButton.Name = groupName;
+                    
+                    @if (radioButton.RadioButtonType == RadioButtonType.RadioButton)
+                    {
+                        <div class="govuk-radios__item">
+                            @Html.RadioButtonFor(Model => Model.SelectedValue, @radioButton.Value, new { id = radioButton.Id, @class = "govuk-radios__input" })
+                            <label class="govuk-label govuk-radios__label" for="@radioButton.Id">
+                                @radioButton.Text
+                            </label>
+                            @if (radioButton.HasHint)
+                            {
+                                <div id="@radioButton.Id-hint" class="govuk-hint govuk-radios__hint">
+                                    @radioButton.Hint
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="govuk-radios__divider">@radioButton.Text</div>
+                    }
+                }
+            </div>
+        </fieldset>
+    </div>
+}

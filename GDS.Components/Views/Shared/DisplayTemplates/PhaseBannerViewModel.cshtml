@@ -1,0 +1,19 @@
+﻿@model GDS.Components.ViewModels.PhaseBannerViewModel;
+@{
+    if (Model == null)
+    {
+        throw new InvalidOperationException("PhaseBannerViewModel is null.");
+    }
+}
+@{
+    <div class="govuk-phase-banner">
+        <p class="govuk-phase-banner__content">
+            <strong class="govuk-tag govuk-phase-banner__content__tag">
+                @Model.Phase
+            </strong>
+            <span class="govuk-phase-banner__text">
+                @Model.BannerContent.ContextText <a class="govuk-link" href="@Model.BannerContent.Url">@Model.BannerContent.Text</a>.
+            </span>
+        </p>
+    </div>
+}

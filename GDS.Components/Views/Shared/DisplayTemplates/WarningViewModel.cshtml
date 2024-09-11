@@ -1,0 +1,16 @@
+﻿@model GDS.Components.ViewModels.WarningViewModel;
+@{
+    if (Model == null)
+    {
+        throw new InvalidOperationException("WarningViewModel is null.");
+    }
+}
+@{
+    <div class="govuk-warning-text">
+        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+        <strong class="govuk-warning-text__text">
+            <span class="govuk-visually-hidden">Warning</span>
+            @Model.Content
+        </strong>
+    </div>
+}

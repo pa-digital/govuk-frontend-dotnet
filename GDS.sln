@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35122.118
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GDS.Components", "GDS.Components\GDS.Components.csproj", "{15DAD5F5-D506-4DDC-AC9C-69D639BD64FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GDS.Components.Test", "GDS.Components.Test\GDS.Components.Test.csproj", "{672C0E97-7D90-458E-99C6-F4879E26F728}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{15DAD5F5-D506-4DDC-AC9C-69D639BD64FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15DAD5F5-D506-4DDC-AC9C-69D639BD64FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15DAD5F5-D506-4DDC-AC9C-69D639BD64FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15DAD5F5-D506-4DDC-AC9C-69D639BD64FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{672C0E97-7D90-458E-99C6-F4879E26F728}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{672C0E97-7D90-458E-99C6-F4879E26F728}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{672C0E97-7D90-458E-99C6-F4879E26F728}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{672C0E97-7D90-458E-99C6-F4879E26F728}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {36F366D7-0FEA-45BA-BB9E-2E6BB0178451}
+	EndGlobalSection
+EndGlobal

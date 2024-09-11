@@ -1,0 +1,56 @@
+﻿@using GDS.Components.ViewModelCalculationModels
+@model GDS.Components.ViewModels.CheckBoxListViewModel
+@{
+    if (Model == null)
+    {
+        throw new InvalidOperationException("CheckBoxListViewModel is null.");
+    }
+    var inputBaseId = ViewData.TemplateInfo.HtmlFieldPrefix.Replace(" ", "").Replace("-", "").Replace("_", "").Replace(".", "").ToLower();
+    var checkBoxCalculationsModel = new CheckBoxListViewCalculationsModel(Model, inputBaseId);
+    if (checkBoxCalculationsModel == null)
+    {
+        throw new InvalidOperationException("CheckBoxListViewCalculationsModel is null.");
+    }
+}
+@{
+    <div class="@checkBoxCalculationsModel.containerClass">
+        <fieldset class="govuk-fieldset" @if (checkBoxCalculationsModel.showDescribedByTag)
+        {
+            <text>aria-describedby="@checkBoxCalculationsModel.describedByTag"</text>
+        }>
+            <legend class="@checkBoxCalculationsModel.legendClass">
+                @if (checkBoxCalculationsModel.showH1)
+                {
+                    <h1 class="govuk-fieldset__heading">
+                        @Model.Legend
+                    </h1>
+                }
+                else
+                {
+                    @Model.Legend
+                }
+            </legend>
+            @if (checkBoxCalculationsModel.isHint)
+            {
+                <div id="@inputBaseId-hint" class="govuk-hint">
+                    @Model.Hint
+                </div>
+            }
+            @if (checkBoxCalculationsModel.isError)
+            {
+                <p id="@inputBaseId-error" class="govuk-error-message">
+                    <span class="govuk-visually-hidden">Error:</span> @Model.Error
+                </p>
+            }
+            <div class="@checkBoxCalculationsModel.checkBoxGroupClass" data-module="govuk-checkboxes">
+                @for (int i = 0; i < Model.CheckBoxes.Count; i++)
+                {
+                    var checkBox = Model.CheckBoxes[i];
+                    checkBox.Id = $"{inputBaseId}-{i}".ToLower();
+                    checkBox.Name = $"{ViewData.TemplateInfo.HtmlFieldPrefix}[CheckBoxes][{i}].Checked";
+                    @Html.EditorFor(m => m.CheckBoxes[i])
+                }
+            </div>
+        </fieldset>
+    </div>
+}
