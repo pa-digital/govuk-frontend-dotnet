@@ -1,0 +1,29 @@
+name: Publish to GitHub Packages
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Restore NuGet packages
+      run: dotnet restore
+
+    - name: Build project
+      run: dotnet build --configuration Release
+
+    - name: Pack project
+      run: dotnet pack --configuration Release
+
+    - name: Publish NuGet package to GitHub Packages
+      run: dotnet nuget push bin/Release/*.nupkg --source "https://nuget.pkg.github.com/pa-digital/index.json" --api-key ${{ secrets.GITHUB_TOKEN }}
