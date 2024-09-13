@@ -4,7 +4,7 @@ The GOV.UK Design System is an official design framework produced by the UK Gove
 
 You can find the guide at the <a href="https://design-system.service.gov.uk/" target="_blank" rel="noreferrer">GOV.UK Design System</a> website.
 
-## NPM Package use in your target project
+## NuGet Package use in your target project
 
 If you just with to use the package as is direct from the repository then simply install the latest version of the NuGet Package GDS.Components using your favourite package manager.
 
